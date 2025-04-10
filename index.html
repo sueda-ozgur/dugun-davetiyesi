@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Düğün Davetiyesi</title>
+  <script>
+    window.katilimFormuGonder = async function(e) {
+      e.preventDefault();
+  
+      const isim = document.getElementById("isim")?.value.trim();
+      const katilim = document.querySelector('input[name="rsvp"]:checked')?.value;
+      const not = document.getElementById("not")?.value.trim() || "";
+  
+      if (!isim || !katilim) {
+        alert("Lütfen tüm zorunlu alanları doldurun.");
+        return;
+      }
+  
+      try {
+        const response = await fetch("https://dugun-davetiye-backend.onrender.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ isim, katilim, not })
+        });
+  
+        const msg = await response.text();
+  
+        if (response.ok) {
+          alert("Cevabınız başarıyla kaydedildi. Teşekkür ederiz! 🙏");
+          e.target.reset();
+        } else {
+          alert("Bir hata oluştu: " + msg);
+        }
+      } catch (err) {
+        console.error("Gönderim hatası:", err);
+        alert("Bağlantı hatası. Lütfen tekrar deneyin.");
+      }
+    };
+  </script>
+  <style>
+  @media (min-width: 768px) {
+  section#s1 {
+    min-height: 85vh;
+    padding-bottom: 120px; /* ok.gif dışarı taşmasın diye */
+  }
+}
+    @font-face {
+      font-family: 'GreatVibes';
+      src: url('fonts/Aerotis.ttf') format('truetype');
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Poppins';
+      src: url('fonts/TA-2.otf') format('opentype');
+      font-weight: 600;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'PunctuationFont';
+      src: url('fonts/AdoraBouton-Regular.ttf') format('truetype');
+      font-weight: 600;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      height: 100%;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+      background: url('assets/images/image4.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #000;
+    }
+    body {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+    }
+    section {
+  scroll-snap-align: start;
+  min-height: calc(100dvh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+  padding: 30px 20px;
+  margin: 0 auto;
+  max-width: 500px;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+    section:first-of-type {
+      margin-top: 0;
+      padding-top: 0px;
+    }
+    
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h1 {
+      font-family: 'GreatVibes', cursive;
+      font-size: 62px;
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
+    h2, h3 {
+      font-family: 'GreatVibes', cursive;
+      font-size: 40px;
+      margin-bottom: 5px;
+      margin-top: 5px;
+      
+    }
+    h4 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 30px;
+      margin-bottom: 0px;
+    }
+    p {
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 10px;
+    }
+    .punc {
+      font-family: 'PunctuationFont', sans-serif;
+    }
+    .button {
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+    .stack-container {
+  position: relative; /* Flutter'daki Stack */
+  width: 100%;
+  max-width: 500px;
+  height: 200px; /* yükseklik gerekli */
+  margin: auto;
+}
+.car-positioned {
+  position: absolute; /* Flutter'daki Positioned */
+  bottom: 10px;
+  right: 10px;
+  width: 60px;
+  cursor: pointer;
+}
+
+.ok-positioned {
+  position: absolute; /* Flutter'daki Positioned */
+  bottom: 10px;
+  right: 10px;
+  width: 80px;
+  cursor: pointer;
+}
+.ok-positioned2 {
+  position: absolute; /* Flutter'daki Positioned */
+  top: 0;
+  right: 10px;
+  width: 80px;
+  cursor: pointer;
+}
+.ok-positioned3 {
+  position: absolute; /* Flutter'daki Positioned */
+  top: 15px;
+  left: 10px;
+  width: 80px;
+  cursor: pointer;
+}
+  
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    
+.arrow-right-aligned{
+  width: 80px;
+  height: auto;
+  opacity: 1;
+  margin-top: 10px;
+  cursor: pointer;
+  margin-right: 0;
+  margin-left: auto;
+}
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+    .row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px; /* görseller arası boşluk */
+  flex-wrap: wrap; /* mobilde alt alta geçebilmesi için */
+}
+.map-popup {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: none;
+  z-index: 9999; /* Buraya dikkat */
+  width: 220px;
+}
+
+.map-popup a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #000;
+  font-size: 14px;
+  transition: background 0.2s;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+.map-popup a:hover {
+  background: #f0f0f0;
+}
+.map-divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 4px 10px;
+}
+img.illustration {
+      display: block;
+      max-width: 40%;
+      height: auto;
+    }
+    .center-align {
+  display: block;
+  margin:auto;
+}
+.askı_align{
+  
+  max-width: 30%;
+  height: auto;
+  display: block;
+  margin-bottom: 30px;
+}
+
+.right-align {
+  display: block;
+  margin-left: auto;
+  margin-right: 50;
+  margin-bottom: 20;
+}
+.car-left-align {
+  max-width: 35%;
+  margin-top: auto;
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+}
+.rsvp-option {
+  margin: 8px 0;
+}
+
+
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.radio-label input[type="radio"] {
+  vertical-align: middle;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+  </style>
+</head>
+<body>
+  <main>
+    <section id="s1">
+      <h1>Davetlisiniz<span class="punc">!</span></h1>
+      <p>Bu özel günümüzde yanımızda olmanızdan mutluluk duyarız<span class="punc">.</span></p>
+      <h4>5 TEMMUZ 2025</h4>
+      <h2>Sueda <span class="punc">&</span> Özgür</h2>
+      <div class="stack-container">
+        <img src="assets/images/bridegroom.png" alt="Mum resmi" class="illustration center-align">
+        <img src="assets/images/ok.gif" class="ok-positioned" onclick="document.getElementById('s2').scrollIntoView({behavior: 'smooth'})">
+      </div>
+    </section>
+
+    <section id="s2">
+      <img src="assets/images/car.png" alt="Araba resmi" class="car-left-align">
+      <h2>Lokasyon</h2>
+      <p>Anemon Aydın Otel<br>Ilıcabaşı, 323. Sk. No:12, 09010 Efeler/Aydın</p>
+    
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3132.529020742633!2d27.8746476!3d37.8454489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b92b6f796a43af%3A0x335ceec64a504806!2sAnemon%20Ayd%C4%B1n%20Otel!5e0!3m2!1str!2str!4v1712135307901!5m2!1str!2str" 
+        width="80%" 
+        height="300" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    
+      
+      <div class="stack-container">
+        <div style="text-align: center; margin-top: 20px; position: relative;">
+          <button class="button" id="haritadaAcBtn">Haritalarda Aç</button>
+        
+          <!-- Mini popup kutusu -->
+          <div id="mapPopup" class="map-popup">
+            <a href="http://maps.apple.com/?ll=37.8454489,27.8746476&q=Anemon+Aydın+Otel"
+               target="_blank">Apple Harita’da Aç</a>
+        
+            <div class="map-divider"></div> <!-- Divider -->
+        
+            <a href="https://maps.google.com/?q=37.8454489,27.8746476"
+               target="_blank">Google Maps’te Aç</a>
+          </div>
+        </div>
+        <img src="assets/images/ok.gif" class="ok-positioned2" onclick="document.getElementById('s3').scrollIntoView({behavior: 'smooth'})">
+      </div>
+    </section>
+    
+
+    <section id="s3">
+      <h2>Program</h2>
+    <p>Cumartesi, 5 Temmuz</p>
+      <p><strong>19:00</strong> – Konukların Karşılanması</p>
+      <p><strong>19:30</strong> – Resepsiyon & Giriş</p>
+      <p><strong>20:00</strong> – Nikah</p>
+      <p><strong>20:30</strong> – Akşam Yemeği</p>
+      <p><strong>21:00</strong> – Pasta Kesimi</p>
+      <p><strong>21:30</strong> – İlk Dans</p>
+      <p><strong>22:00</strong> – Müzik & Eğlence</p>
+      <div class="stack-container">
+        <img src="assets/images/mum.png" alt="Mum resmi" class="illustration right-align">
+        <img src="assets/images/ok.gif" class="ok-positioned3" onclick="document.getElementById('s4').scrollIntoView({behavior: 'smooth'})">
+      </div>
+    </section>
+
+    <section id="s4">
+      <img src="assets/images/askı2.png" alt="Mum resmi" class="askı_align">
+      <h2>Dress Code</h2>
+      <p>Sizi, size en yakışan tonla görmeyi bekliyoruz.</p>
+      <p>Gülümsemeniz ve şıklığınızla geceyi renklendirin.</p>
+      
+      <img src="assets/images/ok.gif" class="arrow-right-aligned" onclick="document.getElementById('s5').scrollIntoView({behavior: 'smooth'})">
+    </section>
+
+    <section id="s5">
+      <h2>Davetimize Cevabiniz</h2>
+      <form onsubmit="katilimFormuGonder(event)">
+        <input id="isim" type="text" placeholder="İsim Soyisim (Eğer çift olarak geliyorsanız her iki ismi yazın)" required>
+        <div class="rsvp-option">
+          <label class="radio-label">
+            <input type="radio" name="rsvp" value="Katılıyorum" required>
+            <span>Memnuniyetle Katılıyorum</span>
+          </label>
+        </div>
+        <div class="rsvp-option">
+          <label class="radio-label">
+            <input type="radio" name="rsvp" value="Katılamayacağım">
+            <span>Üzgünüm<span class="punc">,</span> Katılamayacağım</span>
+          </label>
+        </div>
+        <textarea id="not" placeholder="Eklemek istediğiniz bir not var mı?"></textarea>
+        <button class="button" type="submit">GÖNDER</button>
+      </form>
+      <img src="assets/images/ok.gif" class="arrow-right-aligned" onclick="document.getElementById('s6').scrollIntoView({behavior: 'smooth'})">
+    </section>
+    <section id="s6">
+      <h2>Davete</h2>
+      <p id="countdown-text" style="font-size: 22px; font-family: 'Poppins', sans-serif;">Yükleniyor...</p>
+      <a id="calendarLink" target="_blank">
+        <button class="button">Takvime Ekle</button>
+      </a>
+    </section>
+  </main>
+
+  <script>
+    //takvimcilik
+    // Takvim bağlantılarını hazırla
+const googleCalURL = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sueda+%26+%C3%96zg%C3%BCr+D%C3%BC%C4%9F%C3%BCn%C3%BC&details=5+Temmuz+2025+%C3%87iftimizin+en+%C3%B6zel+g%C3%BCn%C3%BCne+bekleriz.&location=Anemon+Ayd%C4%B1n+Otel&dates=20250705T150000Z/20250705T210000Z";
+const appleCalURL = "data:text/calendar;charset=utf8," + encodeURIComponent(`BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Sueda & Özgür Düğünü
+DESCRIPTION:5 Temmuz 2025 Sueda ve Özgür’ün nikah ve düğün törenine davetlisiniz.
+LOCATION:Anemon Aydın Otel
+DTSTART:20250705T150000Z
+DTEND:20250705T210000Z
+END:VEVENT
+END:VCALENDAR`);
+
+const calendarLink = document.getElementById("calendarLink");
+
+// Basit cihaz algılayıcı
+function isIOS() {
+  return /iPad|iPhone|iPod|Mac/.test(navigator.userAgent) && !window.MSStream;
+}
+
+function isAndroid() {
+  return /android/i.test(navigator.userAgent);
+}
+
+// Linki cihaz türüne göre ayarla
+if (isIOS()) {
+  calendarLink.href = appleCalURL;
+  calendarLink.setAttribute("download", "dugun.ics"); // iOS cihazlara dosya olarak iner
+} else {
+  calendarLink.href = googleCalURL;
+}
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.3
+    });
+    sections.forEach(section => observer.observe(section));
+
+    const countdownText = document.getElementById("countdown-text");
+    const targetDate = new Date("2025-07-05T00:00:00");
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      if (diff <= 0) {
+        countdownText.textContent = "Bugün!";
+        return;
+      }
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / (60 * 60 * 24));
+      const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+      const seconds = totalSeconds % 60;
+      countdownText.textContent = `${days} gün ${hours} saat ${minutes} dakika ${seconds} saniye kaldı`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    const btn = document.getElementById("haritadaAcBtn");
+  const popup = document.getElementById("mapPopup");
+
+  // Butona tıklanınca popup'ı aç/kapat
+  btn.addEventListener("click", () => {
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+  });
+
+  // Dışarı tıklanınca kapat
+  document.addEventListener("click", function (event) {
+    if (!btn.contains(event.target) && !popup.contains(event.target)) {
+      popup.style.display = "none";
+    }
+  });
+
+
+
+  // Seçeneklerden birine tıklanınca da kapat
+  document.querySelectorAll('#mapPopup a').forEach(link => {
+    link.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+  });
+  </script>
+</body>
+</html>
