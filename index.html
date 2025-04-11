@@ -1,45 +1,64 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+  <meta property="og:title" content="Sueda & Özgür Düğün Davetiyesi" />
+  <meta property="og:description" content="5 Temmuz 2025 - Bu özel günümüzde yanımızda olmanızdan mutluluk duyarız!" />
+  <meta property="og:image" content="https://sueda-ozgur.github.io/dugun-davetiyesi/assets/images/bridegroom.png" />
+  <meta property="og:url" content="https://sueda-ozgur.github.io/dugun-davetiyesi/" />
+  <meta property="og:type" content="website" />
   <meta name="robots" content="noindex, nofollow">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Düğün Davetiyesi</title>
   <script>
+    // Render backend'i sayfa açılır açılmaz uyandır
+  fetch("https://dugun-davetiye-backend.onrender.com/")
+    .then(() => console.log("Render backend uyarıldı ☕"))
+    .catch(() => console.warn("Backend uyarı isteği başarısız 😴"));
     window.katilimFormuGonder = async function(e) {
-      e.preventDefault();
-  
-      const isim = document.getElementById("isim")?.value.trim();
-      const katilim = document.querySelector('input[name="rsvp"]:checked')?.value;
-      const not = document.getElementById("not")?.value.trim() || "";
-  
-      if (!isim || !katilim) {
-        alert("Lütfen tüm zorunlu alanları doldurun.");
-        return;
-      }
-  
-      try {
-        const response = await fetch("https://dugun-davetiye-backend.onrender.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ isim, katilim, not })
-        });
-  
-        const msg = await response.text();
-  
-        if (response.ok) {
-          alert("Cevabınız başarıyla kaydedildi. Teşekkür ederiz! 🙏");
-          e.target.reset();
-        } else {
-          alert("Bir hata oluştu: " + msg);
-        }
-      } catch (err) {
-        console.error("Gönderim hatası:", err);
-        alert("Bağlantı hatası. Lütfen tekrar deneyin.");
-      }
-    };
+  e.preventDefault();
+
+  document.getElementById("formContainer").style.display = "none";
+  document.getElementById("loading").style.display = "block";
+
+  const isim = document.getElementById("isim")?.value.trim();
+  const katilim = document.querySelector('input[name="rsvp"]:checked')?.value;
+  const not = document.getElementById("not")?.value.trim() || "";
+
+  if (!isim || !katilim) {
+    alert("Lütfen tüm zorunlu alanları doldurun.");
+    document.getElementById("formContainer").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+    return;
+  }
+
+  try {
+    const response = await fetch("https://dugun-davetiye-backend.onrender.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ isim, katilim, not })
+    });
+
+    const msg = await response.text();
+
+    if (response.ok) {
+      alert("Cevabınız başarıyla kaydedildi. Teşekkür ederiz! 🙏");
+      // formu resetle ama tekrar görünür yapma (animasyon kalsın)
+      e.target.reset();
+    } else {
+      alert("Bir hata oluştu: " + msg);
+      document.getElementById("formContainer").style.display = "block";
+      document.getElementById("loading").style.display = "none";
+    }
+  } catch (err) {
+    console.error("Gönderim hatası:", err);
+    alert("Bağlantı hatası. Lütfen tekrar deneyin.");
+    document.getElementById("formContainer").style.display = "block";
+    document.getElementById("loading").style.display = "none";
+  }
+};
   </script>
   <style>
   @media (min-width: 768px) {
@@ -88,7 +107,7 @@
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transform: translateY(50px);
+  transition: opacity 0.8s ease;
   transition: all 0.8s ease;
   padding: 30px 20px;
   margin: 0 auto;
@@ -106,7 +125,7 @@
     
     section.visible {
       opacity: 1;
-      transform: translateY(0);
+      
     }
     h1 {
       font-family: 'GreatVibes', cursive;
@@ -151,6 +170,14 @@
   max-width: 500px;
   height: 200px; /* yükseklik gerekli */
   margin: auto;
+}
+.bride-positioned {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  cursor: pointer;
 }
 .car-positioned {
   position: absolute; /* Flutter'daki Positioned */
@@ -253,7 +280,8 @@ img.illustration {
     }
     .center-align {
   display: block;
-  margin:auto;
+  bottom: 0px;
+  
 }
 .askı_align{
   
@@ -306,7 +334,7 @@ img.illustration {
       <h4>5 TEMMUZ 2025</h4>
       <h2>Sueda <span class="punc">&</span> Özgür</h2>
       <div class="stack-container">
-        <img src="assets/images/bridegroom.png" alt="Mum resmi" class="illustration center-align">
+        <img src="assets/images/bridegroom.png" alt="Mum resmi" class="bride-positioned">
         <img src="assets/images/ok.gif" class="ok-positioned" onclick="document.getElementById('s2').scrollIntoView({behavior: 'smooth'})">
       </div>
     </section>
@@ -356,7 +384,7 @@ img.illustration {
       <p><strong>20:30</strong> – Akşam Yemeği</p>
       <p><strong>21:00</strong> – Pasta Kesimi</p>
       <p><strong>21:30</strong> – İlk Dans</p>
-      <p><strong>22:00</strong> – Müzik & Eğlence</p>
+      <p><strong>22:00-00:00</strong> – Müzik & Eğlence</p>
       <div class="stack-container">
         <img src="assets/images/mum.png" alt="Mum resmi" class="illustration right-align">
         <img src="assets/images/ok.gif" class="ok-positioned3" onclick="document.getElementById('s4').scrollIntoView({behavior: 'smooth'})">
@@ -374,23 +402,33 @@ img.illustration {
 
     <section id="s5">
       <h2>Davetimize Cevabiniz</h2>
-      <form onsubmit="katilimFormuGonder(event)">
-        <input id="isim" type="text" placeholder="İsim Soyisim (Eğer çift olarak geliyorsanız her iki ismi yazın)" required>
-        <div class="rsvp-option">
-          <label class="radio-label">
-            <input type="radio" name="rsvp" value="Katılıyorum" required>
-            <span>Memnuniyetle Katılıyorum</span>
-          </label>
-        </div>
-        <div class="rsvp-option">
-          <label class="radio-label">
-            <input type="radio" name="rsvp" value="Katılamayacağım">
-            <span>Üzgünüm<span class="punc">,</span> Katılamayacağım</span>
-          </label>
-        </div>
-        <textarea id="not" placeholder="Eklemek istediğiniz bir not var mı?"></textarea>
-        <button class="button" type="submit">GÖNDER</button>
-      </form>
+    
+      <div id="formContainer">
+        <form onsubmit="katilimFormuGonder(event)">
+          <input id="isim" type="text" placeholder="İsim Soyisim (Eğer çift olarak geliyorsanız her iki ismi yazın)" required>
+          <div class="rsvp-option">
+            <label class="radio-label">
+              <input type="radio" name="rsvp" value="Katılıyorum" required>
+              <span>Memnuniyetle Katılıyorum</span>
+            </label>
+          </div>
+          <div class="rsvp-option">
+            <label class="radio-label">
+              <input type="radio" name="rsvp" value="Katılamayacağım">
+              <span>Üzgünüm<span class="punc">,</span> Katılamayacağım</span>
+            </label>
+          </div>
+          <textarea id="not" placeholder="Eklemek istediğiniz bir not var mı?"></textarea>
+          <button class="button" type="submit">GÖNDER</button>
+        </form>
+    
+        
+      </div>
+    
+      <div id="loading" style="display:none; text-align:center;">
+        <img src="assets/images/loadingen.gif" alt="Yükleniyor..." style="width:120px; margin: 20px auto;">
+        <p style="font-family: 'Poppins';">Gönderiliyor...</p>
+      </div>
       <img src="assets/images/ok.gif" class="arrow-right-aligned" onclick="document.getElementById('s6').scrollIntoView({behavior: 'smooth'})">
     </section>
     <section id="s6">
