@@ -2,8 +2,8 @@
 <html lang="tr">
 <head>
   <meta property="og:title" content="Sueda & Özgür Düğün Davetiyesi" />
-  <meta property="og:description" content="5 Temmuz 2025 - Bu özel günümüzde yanımızda olmanızdan mutluluk duyarız!" />
-  <meta property="og:image" content="https://sueda-ozgur.github.io/dugun-davetiyesi/assets/images/bridegroom.png" />
+  <meta property="og:description" content="5 Temmuz 2025 - Bu özel günümüzde sizinle birlikte olmayı çok isteriz. Lütfen katılım durumunuzu bizimle paylaşmayı unutmayın!" />
+  <meta property="og:image" content="https://sueda-ozgur.github.io/dugun-davetiyesi/assets/images/davetlisiniz.png" />
   <meta property="og:url" content="https://sueda-ozgur.github.io/dugun-davetiyesi/" />
   <meta property="og:type" content="website" />
   <meta name="robots" content="noindex, nofollow">
@@ -68,8 +68,10 @@
 
       } else {
         alert("Bir hata oluştu: " + msg);
-        document.getElementById("formContainer").style.display = "block";
-        document.getElementById("loading").style.display = "none";
+setTimeout(() => {
+  document.getElementById("formContainer").style.display = "block";
+  document.getElementById("loading").style.display = "none";
+}, 300); // biraz gecikmeli gösterim hissiyat açısından iyi olur
       }
     } catch (err) {
       console.error("Gönderim hatası:", err);
@@ -78,15 +80,10 @@
       document.getElementById("loading").style.display = "none";
     }
   };
-</script>
+
   </script>
   <style>
-  @media (min-width: 768px) {
-  section#s1 {
-    min-height: 85vh;
-    padding-bottom: 120px; /* ok.gif dışarı taşmasın diye */
-  }
-}
+  
     @font-face {
       font-family: 'GreatVibes';
       src: url('fonts/Aerotis.ttf') format('truetype');
@@ -130,7 +127,7 @@
   transition: opacity 0.8s ease;
   transition: all 0.8s ease;
   padding: 30px 20px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   max-width: 500px;
   background-color: rgba(255, 255, 255, 0.75);
   border-radius: 16px;
@@ -138,10 +135,12 @@
   position: relative;
   overflow: hidden;
 }
-    section:first-of-type {
-      margin-top: 0;
-      padding-top: 0px;
-    }
+section:first-of-type {
+  height:100dvh;
+  margin-top: 0;
+  padding-top: 0;
+  overflow: hidden; /* opsiyonel: taşma olmasın diye */
+}
     
     section.visible {
       opacity: 1;
@@ -185,19 +184,26 @@
       margin-bottom: 20px;
     }
     .stack-container {
-  position: relative; /* Flutter'daki Stack */
+  position: relative;
   width: 100%;
   max-width: 500px;
-  height: 200px; /* yükseklik gerekli */
+  height: auto; /* yükseklik sabit değil artık */
+  min-height: 140px; /* görsel için asgari yer bırak */
   margin: auto;
+  padding-top: 30px; /* üstte yazılardan uzaklaştır */
+  padding-bottom: 60px; /* alt görselin sığması için */
 }
+
+/* bridegroom görseli */
 .bride-positioned {
   position: absolute;
-  bottom: -20px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 40%;
-  cursor: pointer;
+  width: 50%;
+  height: auto;
+  max-height: 180px;
+  object-fit: contain;
 }
 .car-positioned {
   position: absolute; /* Flutter'daki Positioned */
@@ -209,7 +215,7 @@
 
 .ok-positioned {
   position: absolute; /* Flutter'daki Positioned */
-  bottom: 10px;
+  bottom: 60px;
   right: 10px;
   width: 80px;
   cursor: pointer;
@@ -344,15 +350,19 @@ img.illustration {
   width: 14px;
   height: 14px;
 }
+
   </style>
 </head>
 <body>
   <main>
     <section id="s1">
-      <h1>Davetlisiniz<span class="punc">!</span></h1>
-      <p>Bu özel günümüzde yanımızda olmanızdan mutluluk duyarız<span class="punc">.</span></p>
-      <h4>5 TEMMUZ 2025</h4>
-      <h2>Sueda <span class="punc">&</span> Özgür</h2>
+      <div class="hero-content">
+        <h1>Davetlisiniz<span class="punc">!</span></h1>
+        <p>Bu özel günümüzde yanımızda olmanızdan mutluluk duyarız<span class="punc">.</span></p>
+        <h4>5 TEMMUZ 2025</h4>
+        <h2>Sueda <span class="punc">&</span> Özgür</h2>
+      </div>
+    
       <div class="stack-container">
         <img src="assets/images/bridegroom.png" alt="Mum resmi" class="bride-positioned">
         <img src="assets/images/ok.gif" class="ok-positioned" onclick="document.getElementById('s2').scrollIntoView({behavior: 'smooth'})">
