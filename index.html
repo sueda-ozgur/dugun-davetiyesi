@@ -44,10 +44,10 @@
     const msg = await response.text();
 
     if (response.ok) {
-      alert("Cevabınız başarıyla kaydedildi. Teşekkür ederiz! 🙏");
-      // formu resetle ama tekrar görünür yapma (animasyon kalsın)
-      e.target.reset();
-    } else {
+  document.getElementById("loading").style.display = "none";
+  document.getElementById("successMessage").style.display = "block";
+  e.target.reset();
+} else {
       alert("Bir hata oluştu: " + msg);
       document.getElementById("formContainer").style.display = "block";
       document.getElementById("loading").style.display = "none";
@@ -428,6 +428,9 @@ img.illustration {
       <div id="loading" style="display:none; text-align:center;">
         <img src="assets/images/loadingen.gif" alt="Yükleniyor..." style="width:120px; margin: 20px auto;">
         <p style="font-family: 'Poppins';">Gönderiliyor...</p>
+      </div>
+      <div id="successMessage" style="display:none; text-align:center;">
+        <p style="font-family: 'Poppins'; font-size: 18px; margin-top: 20px;">Katılım bilginiz başarıyla alındı. Teşekkür ederiz! 🙏</p>
       </div>
       <img src="assets/images/ok.gif" class="arrow-right-aligned" onclick="document.getElementById('s6').scrollIntoView({behavior: 'smooth'})">
     </section>
